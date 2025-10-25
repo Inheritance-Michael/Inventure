@@ -4,7 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,12 +23,44 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
 @Composable
-fun BodyBox() {
+fun Background(modifier: Modifier = Modifier){
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(brush = ingredientBackground)
+    ) {
+       Column(
+           modifier = modifier
+               .padding(15.dp)
+       ) {
+           Row(
+               verticalAlignment = Alignment.CenterVertically,
+               modifier = modifier
+                   .fillMaxWidth()
+           ) {
+               Text(
+                   "Activity",
+                   fontWeight = FontWeight.SemiBold,
+                   fontSize = 22.sp,
+               )
+           }
+           Spacer(modifier = modifier.height(10.dp))
+
+           CategoryBox()
+       }
+    }
+
+}
+
+@Composable
+fun CategoryBox() {
     val items = listOf(
         Pair(R.drawable.triangle, "Tech"),
         Pair(R.drawable.circle, "Nature"),
@@ -61,7 +96,7 @@ fun BodyBox() {
                     .fillMaxWidth()
                     .height(180.dp)
                     .background(brush = backgroundBrush, shape = RoundedCornerShape(16.dp))
-                    .clip(RoundedCornerShape(16.dp))
+                    .clip(RoundedCornerShape(20.dp))
             ) {
                 Image(
                     painter = painterResource(id = imageRes),
@@ -88,5 +123,5 @@ fun BodyBox() {
 @Preview(showBackground = true)
 @Composable
 fun NewUI(){
-    BodyBox()
+    Background()
 }

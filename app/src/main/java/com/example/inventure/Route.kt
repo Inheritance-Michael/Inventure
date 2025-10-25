@@ -28,7 +28,7 @@ fun MainScreen() {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController = navController, screens = screens)
+            BottomNavigationBar(navController = navController, screens = screens,)
         }
     ) { innerPadding ->
         NavHost(
@@ -39,7 +39,7 @@ fun MainScreen() {
             composable(Screen.Home.route) { HomePage() }
             composable(Screen.Add.route) {  }
             composable(Screen.Product.route) { InventoryApp() }
-            composable(Screen.Category.route) {  }
+            composable(Screen.Category.route) { CategoryBox() }
         }
     }
 }

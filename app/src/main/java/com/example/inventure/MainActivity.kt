@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,11 +43,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController, screens: List<Screen>) {
+fun BottomNavigationBar(navController: NavController, screens: List<Screen> ) {
     val currentBackStack by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStack?.destination
 
     NavigationBar {
+
         screens.forEach { screen ->
             NavigationBarItem(
                 selected = currentDestination?.route == screen.route,
@@ -60,7 +62,7 @@ fun BottomNavigationBar(navController: NavController, screens: List<Screen>) {
                     Icon(
                         painter = painterResource(id = screen.icon),
                         contentDescription = screen.title,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(30.dp)
                     )
                 },
                 label = { Text(screen.title) }

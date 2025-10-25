@@ -1,6 +1,6 @@
 package com.example.inventure
 
-import android.R.attr.name
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,6 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,12 +39,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
+
+val ingredientBackground = Brush.linearGradient(
+    colors = listOf(
+        Color(0xFFDCE775), // Light Green (like soft lime)
+        Color(0x80A5A5A5)  // Light Gray
+    ),
+    start = Offset(0f, 0f),
+    end = Offset(1000f, 1000f)
+)
+
+
 @Composable
 fun HomePage(modifier: Modifier = Modifier,  ){
 
     var valueChange by remember { mutableStateOf("") }
 
-    Column( modifier = modifier.background(Color(0xFFDEDDDD))) {
+    Column( modifier = modifier.background(brush = ingredientBackground)) {
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -210,28 +223,6 @@ fun HomePage(modifier: Modifier = Modifier,  ){
 
             Spacer(modifier = modifier.height(10.dp))
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = modifier
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    "Special Offer ",
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 22.sp,
-                )
-                Row(
-                    horizontalArrangement = Arrangement.End,
-                    modifier = modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        "See All",
-                    )
-                }
-            }
-
-            Spacer(modifier = modifier.height(10.dp))
-            Row(
                 modifier = modifier
                     .fillMaxWidth()
             ) {
@@ -247,7 +238,32 @@ fun HomePage(modifier: Modifier = Modifier,  ){
                 LazyItemTwo()
             }
 
-            Spacer(modifier = modifier.height(10.dp))
+            Spacer(modifier = modifier.height(20.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    "Most Popular",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 22.sp,
+                )
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    modifier = modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        "See All",
+                    )
+                }
+            }
+
+            Row {
+                
+            }
             //column
         }
     }
@@ -342,10 +358,10 @@ fun ActivityBox(image: Int, count: String, name: String, modifier: Modifier = Mo
 @Composable
 fun LazyItem(){
     val item = listOf(
-        Triple(R.drawable.sofa, Color(0xFFEF5350), "Tech Book"),
-        Triple(R.drawable.chair, Color(0xFF42A5F5), "Nature Book"),
-        Triple(R.drawable.lamptwo, Color(0xFF66BB6A), "Food Book"),
-        Triple(R.drawable.lamp, Color(0xFF66BB6A), "Food Book"),
+        Triple(R.drawable.sofa, Color(0x7AAE5DA3), "sofa"),
+        Triple(R.drawable.chair, Color(0x7A9C620F), "chair"),
+        Triple(R.drawable.lamptwo, Color(0x7A61B0B2), "lamp"),
+        Triple(R.drawable.lamp, Color(0x7ACA411C), "light"),
 
     )
 
@@ -392,6 +408,8 @@ fun MenuBox(image: Int, color: Color, title: String, modifier: Modifier = Modifi
         Spacer(modifier = modifier.height(5.dp))
         Text(
             title,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium
         )
     }
 }
@@ -400,10 +418,10 @@ fun MenuBox(image: Int, color: Color, title: String, modifier: Modifier = Modifi
 @Composable
 fun LazyItemTwo(){
     val item = listOf(
-        Triple(R.drawable.vase, Color(0xFF66BB6A), "Food Book"),
-        Triple(R.drawable.kitchen, Color(0xFF66BB6A), "Food Book"),
-        Triple(R.drawable.cupboard, Color(0xFF66BB6A), "Food Book"),
-        Triple(R.drawable.apps, Color(0xFF66BB6A), "Food Book")
+        Triple(R.drawable.vase, Color(0x7A27282B), "vase"),
+        Triple(R.drawable.kitchen, Color(0x4D4F0401), "kitchen"),
+        Triple(R.drawable.cupboard, Color(0x7A343C85), "board"),
+        Triple(R.drawable.apps, Color(0x7C4CAF50), "more")
     )
 
 
@@ -449,6 +467,8 @@ fun MenuBoxTwo(image: Int, color: Color, title: String, modifier: Modifier = Mod
         Spacer(modifier = modifier.height(5.dp))
         Text(
             title,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium
         )
     }
 }
