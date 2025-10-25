@@ -16,8 +16,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://jitpack.io") // ✅ Kotlin DSL syntax
     }
 }
+
 
 rootProject.name = "Inventure"
 include(":app")

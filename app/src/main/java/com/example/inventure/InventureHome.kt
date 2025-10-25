@@ -1,5 +1,6 @@
 package com.example.inventure
 
+import android.R.attr.name
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,15 +30,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
 @Composable
-fun HomePage(modifier: Modifier = Modifier){
+fun HomePage(modifier: Modifier = Modifier,  ){
 
     var valueChange by remember { mutableStateOf("") }
 
@@ -74,7 +75,8 @@ fun HomePage(modifier: Modifier = Modifier){
                         modifier = modifier
                             .clip(RoundedCornerShape(20.dp))
                             .size(50.dp)
-                            .background(Color(0xFFFFFFFF)),
+                            .background(Color(0xFFFFFFFF))
+                            .clickable{},
                         contentAlignment = Alignment.Center
                     ){
                         Image(
@@ -89,7 +91,8 @@ fun HomePage(modifier: Modifier = Modifier){
                         modifier = modifier
                             .clip(RoundedCornerShape(20.dp))
                             .size(50.dp)
-                            .background(Color(0xFFFFFFFF)),
+                            .background(Color(0xFFFFFFFF))
+                            .clickable{},
                         contentAlignment = Alignment.Center,
 
                     ){
@@ -183,7 +186,68 @@ fun HomePage(modifier: Modifier = Modifier){
                 }
             }
 
+            Spacer(modifier = modifier.height(10.dp))
+            Column(
+                modifier = modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = modifier
+                        .clip(RoundedCornerShape(20.dp))
+                        .width(350.dp)
+                        .height(150.dp)
+                        .background(Color(0xFFFFFFFF))
+                        .clickable{},
+                    contentAlignment = Alignment.CenterStart,
+                ){
+//                    Image(
+//                        painter = painterResource(R.drawable.portrait_lesbian),
+//                        ""
+//                    )
+                }
+            }
 
+            Spacer(modifier = modifier.height(10.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    "Special Offer ",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 22.sp,
+                )
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    modifier = modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        "See All",
+                    )
+                }
+            }
+
+            Spacer(modifier = modifier.height(10.dp))
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+            ) {
+                LazyItem()
+            }
+
+            Spacer(modifier = modifier.height(10.dp))
+
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+            ) {
+                LazyItemTwo()
+            }
+
+            Spacer(modifier = modifier.height(10.dp))
             //column
         }
     }
@@ -275,10 +339,124 @@ fun ActivityBox(image: Int, count: String, name: String, modifier: Modifier = Mo
 
 }
 
+@Composable
+fun LazyItem(){
+    val item = listOf(
+        Triple(R.drawable.sofa, Color(0xFFEF5350), "Tech Book"),
+        Triple(R.drawable.chair, Color(0xFF42A5F5), "Nature Book"),
+        Triple(R.drawable.lamptwo, Color(0xFF66BB6A), "Food Book"),
+        Triple(R.drawable.lamp, Color(0xFF66BB6A), "Food Book"),
+
+    )
+
+
+    LazyRow(
+        modifier = Modifier
+            .padding(5.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+
+    ) {
+        items(item.size){
+                index ->
+            val (imageRes, color, title) = item[index]
+            MenuBox(
+            imageRes,
+                color,
+                title
+        )
+        }
+    }
+}
+
+@Composable
+fun MenuBox(image: Int, color: Color, title: String, modifier: Modifier = Modifier){
+
+    Column(
+        modifier =modifier
+            .fillMaxWidth(),
+       horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = modifier
+                .size(60.dp)
+                .background(color, RoundedCornerShape(50.dp))
+                .clickable{},
+            contentAlignment = Alignment.Center
+        ){
+            Image(
+                painter = painterResource(image),
+                ""
+            )
+        }
+        Spacer(modifier = modifier.height(5.dp))
+        Text(
+            title,
+        )
+    }
+}
+
+///
+@Composable
+fun LazyItemTwo(){
+    val item = listOf(
+        Triple(R.drawable.vase, Color(0xFF66BB6A), "Food Book"),
+        Triple(R.drawable.kitchen, Color(0xFF66BB6A), "Food Book"),
+        Triple(R.drawable.cupboard, Color(0xFF66BB6A), "Food Book"),
+        Triple(R.drawable.apps, Color(0xFF66BB6A), "Food Book")
+    )
+
+
+    LazyRow(
+        modifier = Modifier
+            .padding(5.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+
+    ) {
+        items(item.size){
+                index ->
+            val (imageRes, color, title) = item[index]
+            MenuBoxTwo(
+                imageRes,
+                color,
+                title
+            )
+        }
+    }
+}
+
+@Composable
+fun MenuBoxTwo(image: Int, color: Color, title: String, modifier: Modifier = Modifier){
+
+    Column(
+        modifier =modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = modifier
+                .size(60.dp)
+                .background(color, RoundedCornerShape(50.dp))
+                .clickable{},
+            contentAlignment = Alignment.Center
+        ){
+            Image(
+                painter = painterResource(image),
+                ""
+            )
+        }
+        Spacer(modifier = modifier.height(5.dp))
+        Text(
+            title,
+        )
+    }
+}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowUI(){
     HomePage()
     //LazyActivity()
+    //LazyItem()
 }
