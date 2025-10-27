@@ -55,8 +55,8 @@ import coil.compose.AsyncImage
 
 val ingredientBackground = Brush.linearGradient(
     colors = listOf(
-        Color(0xFFDCE775), // Light Green (like soft lime)
-        Color(0x80A5A5A5)  // Light Gray
+        Color(0xFFDCE775),
+        Color(0x80A5A5A5)
     ),
     start = Offset(0f, 0f),
     end = Offset(1000f, 1000f)
@@ -540,6 +540,5 @@ fun MenuBoxTwo(image: Int, color: Color, title: String, modifier: Modifier = Mod
 @Composable
 fun ShowUI(){
     HomePage()
-    //LazyActivity()
-    //LazyItem()
+
 }
