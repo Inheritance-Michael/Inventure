@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 
 
 
-class ItemViewModel: ViewModel() {
+class ItemViewModel : ViewModel() {
     private val _items = mutableStateListOf<Item>()
-    val items: List<Item> = _items
+    val items: List<Item> get() = _items
 
-    fun addItem(item: Item) { _items += item }
+    fun addItem(item: Item) {
+        _items.add(item)
+    }
 }

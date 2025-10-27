@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -37,9 +38,9 @@ fun MainScreen() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) { HomePage() }
-            composable(Screen.Add.route) {  }
-            composable(Screen.Product.route) { InventoryApp() }
-            composable(Screen.Category.route) { CategoryBox() }
+            composable(Screen.Add.route) {   }
+            composable(Screen.Product.route) { Backline() }
+            composable(Screen.Category.route) { Background() }
         }
     }
 }

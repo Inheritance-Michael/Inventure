@@ -1,132 +1,209 @@
 package com.example.inventure
 
 
-
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 
 
+// --------------------- PRODUCT CARD (YOUR DESIGN) ---------------------
 @Composable
-fun ItemListScreen(
-    viewModel: ItemViewModel,
-    modifier: Modifier = Modifier
+fun ProductCard(
+    imageUrl: String,
+    name: String,
+    price: String,
+    modifier: Modifier = Modifier,
+    onAddToCartClick: () -> Unit
 ) {
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .width(170.dp)
+            .height(200.dp),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .background(Color.White)
+                .fillMaxSize()
+        ) {
+            AsyncImage(
+                model = imageUrl,
+                contentDescription = name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Column(modifier = Modifier.padding(horizontal = 10.dp)) {
+                Text(
+                    text = name,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = price,
+                        fontSize = 15.sp,
+                        color = Color(0xFF4CAF50),
+                        fontWeight = FontWeight.SemiBold
+                    )
+
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        modifier = modifier
+                            .clickable { }
+                            .fillMaxWidth()
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.more),
+                            contentDescription = ""
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(3.dp))
+
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                ) {
+                    Box(
+                        modifier = modifier
+                            .size(50.dp)
+                            .width(70.dp)
+                            .background(Color(0xffd3d3d3), RoundedCornerShape(15.dp))
+                            .clickable { },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.edit),
+                            contentDescription = ""
+                        )
+                    }
+
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End,
+                    ) {
+                        Box(
+                            modifier = modifier
+                                .size(50.dp)
+                                .width(70.dp)
+                                .background(Color(0x80FF0000), RoundedCornerShape(15.dp))
+                                .clickable { },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.delete),
+                                contentDescription = ""
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// --------------------- ITEM LIST SCREEN ---------------------
+@Composable
+fun ItemListScreen(viewModel: ItemViewModel) {
     val items = viewModel.items
 
     if (items.isEmpty()) {
-        // Empty screen text
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text("No items added yet", color = Color.Gray)
         }
     } else {
-        // List of items
         LazyColumn(
-            modifier = modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
         ) {
-            items(items) { item ->
-                ItemCard(item)
-            }
-        }
-    }
-}
-
-@Composable
-fun ItemCard(item: Item) {
-    Card(
-        elevation = CardDefaults.cardElevation(8.dp),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AsyncImage(
-                model = item.imageUrl,
-                contentDescription = item.description,
-                modifier = Modifier
-                    .size(80.dp)
-            )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column {
-                Text(
-                    text = item.description,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = "₦${item.price}",
-                    color = Color(0xFF4CAF50),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Text(
-                    text = "Qty: ${item.quantity}",
-                    color = Color.Gray,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun InventoryApp() {
-    val navController = rememberNavController()
-    val viewModel: ItemViewModel = viewModel()
-
-    NavHost(
-        navController = navController,
-        startDestination = "list" // 👈 Start from the list screen
-    ) {
-        // 🧾 List Screen
-        composable("list") {
-            Scaffold(
-                floatingActionButton = {
-                    FloatingActionButton(onClick = { navController.navigate("add") }) {
-                        Icon(Icons.Default.Add, contentDescription = "Add")
+            items.chunked(2).forEach { rowItems ->
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        for (item in rowItems) {
+                            ProductCard(
+                                imageUrl = item.imageUrl,
+                                name = item.description,
+                                price = "₦${item.price}",
+                                onAddToCartClick = {}
+                            )
+                        }
                     }
                 }
-            ) { padding ->
-                ItemListScreen(
-                    viewModel = viewModel,
-                    modifier = Modifier.padding(padding)
-                )
             }
-        }
-
-        // ➕ Add Item Screen
-        composable("add") {
-            AddItemScreen(
-                viewModel = viewModel,
-                onDone = { navController.popBackStack() } // go back after adding
-            )
         }
     }
 }
+
+// --------------------- MAIN APP NAVIGATION ---------------------
+//@Composable
+//fun InventoryApp() {
+//    val navController = rememberNavController()
+//    val viewModel: ItemViewModel = viewModel()
+//
+//    NavHost(navController = navController, startDestination = "list") {
+//        // 🏠 List Screen
+//        composable("list") {
+//            Scaffold(
+//                floatingActionButton = {
+//                    FloatingActionButton(onClick = { navController.navigate("add") }) {
+//                        Icon(Icons.Default.Add, contentDescription = "Add")
+//                    }
+//                }
+//            ) { padding ->
+//                Box(modifier = Modifier.padding(padding)) {
+//                    ItemListScreen(viewModel)
+//                }
+//            }
+//        }
+//
+//        // ➕ Add Item Screen
+//        composable("add") {
+//            AddItemScreen(
+//                viewModel = viewModel,
+//                onDone = { navController.navigate("add/") }
+//            )
+//        }
+//    }
+//}
