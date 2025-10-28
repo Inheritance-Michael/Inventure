@@ -50,7 +50,7 @@ fun BottomNavigationBar(navController: NavController, screens: List<Screen>) {
                     Icon(
                         painter = painterResource(id = screen.icon),
                         contentDescription = screen.title,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(30.dp)
                     )
                 },
                 label = { Text(screen.title) }

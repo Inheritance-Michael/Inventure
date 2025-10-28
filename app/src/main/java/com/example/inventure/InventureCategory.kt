@@ -122,18 +122,18 @@ fun CategoryBox() {
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(
-                                    Color(0xFFFFB74D),
-                                    Color(0xFFFFCC80),
-                                    Color(0xFFE0E0E0)
-                                ),
-
-                                startX = 0.0f,
-                                endX = 1.0f * 1000
-                            )
-                        )
+//                        .background(
+//                            brush = Brush.horizontalGradient(
+//                                colors = listOf(
+//                                    Color(0xFFFFB74D),
+//                                    Color(0xFFFFCC80),
+//                                    Color(0xFFE0E0E0)
+//                                ),
+//
+//                                startX = 0.0f,
+//                                endX = 1.0f * 1000
+//                            )
+//                        )
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
